@@ -10,6 +10,7 @@ variable "domain_name" {
   type = string
 }
 
+# ALB https
 variable "certificate_arn" {
   type = string
 }
