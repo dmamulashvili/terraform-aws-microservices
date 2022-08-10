@@ -21,6 +21,8 @@
 #    key     = ""
 #    region  = ""
 #    profile = ""
+##    access_key = ""
+##    secret_key = ""
 #  }
 #  required_providers {
 #    aws = {
