@@ -6,6 +6,7 @@ variable "app_name" {
   type = string
 }
 
+# Route 53 Hosted Zone
 variable "domain_name" {
   type = string
 }
