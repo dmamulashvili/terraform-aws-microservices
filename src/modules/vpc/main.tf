@@ -32,7 +32,7 @@ resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.this.id
   cidr_block = each.key
 
-  availability_zone_id = length(var.public_subnets_dmz) >= length(local.az_ids) ? element(local.az_ids, index(var.public_subnets_dmz, each.value)) : null
+  availability_zone_id = length(var.public_subnets_dmz) <= length(local.az_ids) ? element(local.az_ids, index(var.public_subnets_dmz, each.value)) : null
 
   map_public_ip_on_launch = true
 
@@ -48,7 +48,7 @@ resource "aws_subnet" "private_app" {
   vpc_id     = aws_vpc.this.id
   cidr_block = each.key
 
-  availability_zone_id = length(var.private_subnets_app) >= length(local.az_ids) ? element(local.az_ids, index(var.private_subnets_app, each.value)) : null
+  availability_zone_id = length(var.private_subnets_app) <= length(local.az_ids) ? element(local.az_ids, index(var.private_subnets_app, each.value)) : null
 
   tags = merge({
     Name = "${local.subnet_app_name}-${element(local.az_ids, index(var.private_subnets_app, each.value))}"
@@ -62,7 +62,7 @@ resource "aws_subnet" "private_res" {
   vpc_id     = aws_vpc.this.id
   cidr_block = each.key
 
-  availability_zone_id = length(var.private_subnets_res) >= length(local.az_ids) ? element(local.az_ids, index(var.private_subnets_res, each.value)) : null
+  availability_zone_id = length(var.private_subnets_res) <= length(local.az_ids) ? element(local.az_ids, index(var.private_subnets_res, each.value)) : null
 
   tags = merge({
     Name = "${local.subnet_res_name}-${element(local.az_ids, index(var.private_subnets_res, each.value))}"
