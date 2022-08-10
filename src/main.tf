@@ -122,7 +122,7 @@ module "alb" {
   name = local.alb_name
 
   subnets         = module.vpc.public_subnets_ids
-  security_groups = [aws_security_group.alb_sg.id]
+  security_groups = [aws_security_group.alb_sg.id, aws_security_group.web_access.id]
 
   https_listener_certificate_arn = var.certificate_arn
 
@@ -133,23 +133,23 @@ resource "aws_security_group" "alb_sg" {
   description = "Allow TLS inbound traffic"
   vpc_id      = module.vpc.vpc_id
 
-  ingress {
-    description      = "Allow Http"
-    from_port        = 80
-    to_port          = 80
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  ingress {
-    description      = "Allow Https"
-    from_port        = 443
-    to_port          = 443
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
+#  ingress {
+#    description      = "Allow Http"
+#    from_port        = 80
+#    to_port          = 80
+#    protocol         = "tcp"
+#    cidr_blocks      = ["0.0.0.0/0"]
+#    ipv6_cidr_blocks = ["::/0"]
+#  }
+#
+#  ingress {
+#    description      = "Allow Https"
+#    from_port        = 443
+#    to_port          = 443
+#    protocol         = "tcp"
+#    cidr_blocks      = ["0.0.0.0/0"]
+#    ipv6_cidr_blocks = ["::/0"]
+#  }
 
   egress {
     from_port        = 0
@@ -308,7 +308,7 @@ module "rds_aurora" {
   subnet_group_subnet_ids = module.vpc.public_subnets_ids
 
   cluster_master_username        = var.db_master_username
-  cluster_vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  cluster_vpc_security_group_ids = [aws_security_group.rds_sg.id, aws_security_group.db_access.id]
 
   cluster_instance_instance_class = "db.t4g.medium"
 
