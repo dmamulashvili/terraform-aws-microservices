@@ -79,6 +79,6 @@ terraform plan
 terraform apply
 ```
 Destroy
-```
+```console
 terraform destroy
 ```
