@@ -307,7 +307,7 @@ module "rds_aurora" {
 
   subnet_group_subnet_ids = module.vpc.public_subnets_ids
 
-  cluster_master_username        = "${var.app_name}DbUzr"
+  cluster_master_username        = var.db_master_username
   cluster_vpc_security_group_ids = [aws_security_group.rds_sg.id]
 
   cluster_instance_instance_class = "db.t4g.medium"

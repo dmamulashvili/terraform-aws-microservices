@@ -22,6 +22,10 @@ variable "env_name" {
   }
 }
 
+variable "db_master_username" {
+  type = string
+}
+
 #variable "access_key" {
 #  type = string
 #}
