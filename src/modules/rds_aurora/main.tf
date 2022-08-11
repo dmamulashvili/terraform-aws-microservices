@@ -40,6 +40,7 @@ resource "aws_rds_cluster_instance" "this" {
   engine              = aws_rds_cluster.this.engine
   engine_version      = aws_rds_cluster.this.engine_version
   publicly_accessible = true
+  performance_insights_enabled = true
 }
 
 resource "aws_appautoscaling_target" "this" {
